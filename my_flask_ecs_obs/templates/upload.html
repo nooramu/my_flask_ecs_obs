@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Upload Image for Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            text-align: center;
+        }
+        input[type="file"], input[type="submit"], input[type="button"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .predictions, .uploaded-image {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;  /* Ensures these blocks don't get too wide */
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f8f9fa;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        img {
+            max-width: 80%;  /* Makes the image responsive */
+            height: auto;  /* Maintains the aspect ratio */
+            border-radius: 5px;  /* Optional: Rounds the corners of the image */
+        }
+    </style>
+</head>
+<body>
+<h1>Upload Image for Classification</h1>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="image_file" required>
+    <input type="submit" value="Upload">
+    <input type="button" value="Manage Users" onclick="window.location.href='/user_management';">
+</form>
+
+{% if image_url %}
+    <div class="uploaded-image">
+        <h2>Uploaded Image:</h2>
+        <img src="{{ image_url }}" alt="Uploaded Image">
+    </div>
+{% endif %}
+
+{% if predictions %}
+    <div class="predictions">
+        <h2>Predictions:</h2>
+        <ul>
+        {% for prediction in predictions %}
+            <li>{{ prediction }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+<form action="{{ url_for('logout') }}" method="post">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>

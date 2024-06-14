@@ -1,0 +1,4 @@
+markupsafe==2.0.1
+keras==2.8.0 
+tensorflow==2.8.0
+esdk-obs-python --trusted-host pypi.org
